@@ -1,2 +1,2 @@
-# youtube-player-api
-Youtube Player API Typescript library
+# youtube-player-ts-api
+Youtube Player library

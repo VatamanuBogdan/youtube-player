@@ -1,0 +1,48 @@
+{
+	"name": "youtube-player-react",
+	"version": "0.1.0",
+	"description": "Youtube player react component",
+	"keywords": [
+		"youtube", "player", "react", "component"
+	],
+	"author": {
+        "name": "Bogdan Vatamanu",
+        "email": "vatamanu.bogdan41@gmail.com"
+    },
+	"license": "Apache-2.0",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint -c eslint.config.mjs",
+		"lint:fix": "eslint --fix -c eslint.config.mjs",
+		"clean": "rimraf dist node_modules",
+		"clean:dist": "rimraf dist",
+		"clean:node_modules": "rimraf node_modules"
+	},
+	"homepage": "https://github.com/VatamanuBogdan/youtube-player#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/VatamanuBogdan/youtube-player.git",
+		"directory": "packages/react"
+	},
+	"bugs": {
+		"url": "https://github.com/VatamanuBogdan/youtube-player/issues"
+	},
+	"peerDependencies": {
+		"react": ">=18",
+		"react-dom": ">=18"
+	},
+	"devDependencies": {
+		"@types/react": "^18.0.0",
+		"@types/react-dom": "^18.0.0",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
+	},
+	"files": [
+		"dist"
+	]
+}
