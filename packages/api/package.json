@@ -1,5 +1,5 @@
 {
-    "name": "youtube-player-ts-api",
+    "name": "@youtube-player/api",
     "version": "0.1.0",
     "description": "Youtube Player Typescript API",
     "keywords": [
