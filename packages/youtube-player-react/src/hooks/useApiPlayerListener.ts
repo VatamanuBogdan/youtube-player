@@ -1,5 +1,5 @@
+import { Event, EventListener } from '@youtube-player/api';
 import { DependencyList, useEffect } from 'react';
-import { Event, EventListener } from 'youtube-player-ts-api';
 
 import useContextListener from './internal/useContextListener';
 

@@ -1,4 +1,4 @@
-import { Event, EventListener, YoutubePlayerController, events } from 'youtube-player-ts-api';
+import { Event, EventListener, YoutubePlayerController, events } from '@youtube-player/api';
 
 import ControllerEmitter from './controller-emitter';
 

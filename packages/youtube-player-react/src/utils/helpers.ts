@@ -1,4 +1,4 @@
-import { PlayerId, PlayerState } from 'youtube-player-ts-api';
+import { PlayerId, PlayerState } from '@youtube-player/api';
 
 type PlayingStatus = 'Playing' | 'Paused' | 'Stopped';
 type PlayerSize = { width: number; height: number };

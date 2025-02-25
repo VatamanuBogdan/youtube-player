@@ -1,9 +1,5 @@
+import { PlayerProprieties, YoutubeApiLoader, YoutubePlayerController } from '@youtube-player/api';
 import { useEffect, useMemo, useRef } from 'react';
-import {
-    PlayerProprieties,
-    YoutubeApiLoader,
-    YoutubePlayerController,
-} from 'youtube-player-ts-api';
 
 import useControllerEmitter from '../hooks/internal/useControllerEmitter';
 import { generatePlayerId } from '../utils/helpers';

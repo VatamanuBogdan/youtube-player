@@ -1,5 +1,5 @@
+import { YoutubePlayerController } from '@youtube-player/api';
 import { useEffect, useState } from 'react';
-import { YoutubePlayerController } from 'youtube-player-ts-api';
 
 import useControllerEmitter from './internal/useControllerEmitter';
 

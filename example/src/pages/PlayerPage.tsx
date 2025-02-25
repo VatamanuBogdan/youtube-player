@@ -1,3 +1,4 @@
+import { EventValue, toStringError, toStringState } from '@youtube-player/api';
 import { useEffect, useState } from 'react';
 import { FaBackward, FaForward } from 'react-icons/fa';
 import {
@@ -20,7 +21,6 @@ import {
     usePlayerSize,
     usePlayerVolume,
 } from 'youtube-player-react';
-import { EventValue, toStringError, toStringState } from 'youtube-player-ts-api';
 
 import Button from '../components/Button';
 import InputRange from '../components/InputRange';

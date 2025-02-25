@@ -3,12 +3,15 @@
 	"version": "0.1.0",
 	"description": "Youtube player react component",
 	"keywords": [
-		"youtube", "player", "react", "component"
+		"youtube",
+		"player",
+		"react",
+		"component"
 	],
 	"author": {
-        "name": "Bogdan Vatamanu",
-        "email": "vatamanu.bogdan41@gmail.com"
-    },
+		"name": "Bogdan Vatamanu",
+		"email": "vatamanu.bogdan41@gmail.com"
+	},
 	"license": "Apache-2.0",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
@@ -31,6 +34,9 @@
 	},
 	"bugs": {
 		"url": "https://github.com/VatamanuBogdan/youtube-player/issues"
+	},
+	"dependencies": {
+		"@youtube-player/api": "^0.1.0"
 	},
 	"peerDependencies": {
 		"react": ">=18",

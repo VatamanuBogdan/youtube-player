@@ -1,4 +1,4 @@
-import { EventListener, PlayerState, YoutubePlayerController } from 'youtube-player-ts-api';
+import { EventListener, PlayerState, YoutubePlayerController } from '@youtube-player/api';
 
 import ControllerEmitter from './controller-emitter';
 import { ListenedState, PlayerSize, PlayingStatus } from './helpers';

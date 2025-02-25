@@ -1,4 +1,4 @@
-import { YoutubePlayerController } from 'youtube-player-ts-api';
+import { YoutubePlayerController } from '@youtube-player/api';
 
 import useControllerEmitter from './internal/useControllerEmitter';
 

@@ -1,4 +1,4 @@
-import { YoutubePlayerController } from 'youtube-player-ts-api';
+import { YoutubePlayerController } from '@youtube-player/api';
 
 export type ControllerListener = (c: YoutubePlayerController | null) => void;
 
