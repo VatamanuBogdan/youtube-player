@@ -1,4 +1,4 @@
-import { YoutubePlayerProvider } from 'youtube-player-react';
+import { YoutubePlayerProvider } from '@youtube-player/react';
 
 import PlayerPage from './pages/PlayerPage';
 

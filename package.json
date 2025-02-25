@@ -7,8 +7,8 @@
     },
     "license": "Apache-2.0",
     "scripts": {
-        "build": "npm run build -w youtube-player-ts-api && npm run build -w youtube-player-react",
-        "lint": "npm run lint -w packages/",
+        "build": "npm run build -w packages/",
+        "lint": "npm run lint -@youtube-playerw packages/",
         "clean": "npm run clean -w packages/ && rimraf node_modules"
     },
     "workspaces": [

@@ -1,5 +1,5 @@
 {
-	"name": "youtube-player-react",
+	"name": "@youtube-player/react",
 	"version": "0.1.0",
 	"description": "Youtube player react component",
 	"keywords": [

@@ -1,4 +1,14 @@
 import { EventValue, toStringError, toStringState } from '@youtube-player/api';
+import {
+    YoutubePlayer,
+    useApiPlayerHandler,
+    useApiPlayerListener,
+    usePlayerController,
+    usePlayerMute,
+    usePlayerPlay,
+    usePlayerSize,
+    usePlayerVolume,
+} from '@youtube-player/react';
 import { useEffect, useState } from 'react';
 import { FaBackward, FaForward } from 'react-icons/fa';
 import {
@@ -11,16 +21,6 @@ import {
     IoVolumeMute,
     IoVolumeOff,
 } from 'react-icons/io5';
-import {
-    YoutubePlayer,
-    useApiPlayerHandler,
-    useApiPlayerListener,
-    usePlayerController,
-    usePlayerMute,
-    usePlayerPlay,
-    usePlayerSize,
-    usePlayerVolume,
-} from 'youtube-player-react';
 
 import Button from '../components/Button';
 import InputRange from '../components/InputRange';
