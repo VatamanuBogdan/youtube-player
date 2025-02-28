@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import useContextController from './useGlobalController';
 import { State, StateValueOf } from '../../utils/context-controller';
 
-export default function usePlayerState<S extends State>(
+type StateMutator<S extends State> = (value: StateValueOf<S>) => void;
+
+export default function usePlayerMutableState<S extends State>(
     state: S,
     hookCaller?: string
-): StateValueOf<S> {
+): [StateValueOf<S>, StateMutator<S>] {
     const contextController = useContextController(hookCaller);
     const [value, setValue] = useState(contextController.geValue(state));
 
@@ -20,5 +22,5 @@ export default function usePlayerState<S extends State>(
         };
     }, [state, contextController]);
 
-    return value;
+    return [value, (value) => contextController.setValue(state, value)];
 }

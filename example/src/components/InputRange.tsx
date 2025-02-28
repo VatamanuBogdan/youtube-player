@@ -5,7 +5,8 @@ interface InputRangeProps {
     maxValue: number;
     stepValue: number;
     value: number;
-    setValue: (value: number) => void;
+    onChange: (value: number) => void;
+    onChangeEnd?: () => void;
 }
 
 export default function InputRange(props: InputRangeProps): JSX.Element {
@@ -19,13 +20,15 @@ export default function InputRange(props: InputRangeProps): JSX.Element {
     return (
         <input
             style={style}
-            className={`accent-slate-700 rounded-lg focus:outline-none cursor-pointer`}
+            className="accent-slate-700 rounded-lg focus:outline-none cursor-pointer"
             type="range"
             min={props.minValue}
             max={props.maxValue}
             step={props.stepValue}
             value={props.value}
-            onChange={(e) => props.setValue(parseInt(e.target.value))}
+            onChange={(e) => props.onChange(parseInt(e.target.value))}
+            onMouseUp={props.onChangeEnd}
+            onTouchEnd={props.onChangeEnd}
         />
     );
 }

@@ -8,6 +8,7 @@ export type State = keyof StateTypes;
 export type StateTypes = {
     playing: PlayingStatus;
     volume: number;
+    duration: number;
     mute: boolean;
     size: PlayerSize;
     playlistLoop: boolean;
@@ -26,11 +27,15 @@ export default class ContextPlayerController {
     private states = {
         playing: new ListenedState<PlayingStatus>('Paused'),
         volume: new ListenedState(75),
+        duration: new ListenedState(0),
         mute: new ListenedState(false),
         size: new ListenedState({ width: 600, height: 400 }),
         playlistLoop: new ListenedState(false),
         playlistShuffle: new ListenedState(false),
     };
+
+    private progressAcc: number;
+    private progressStartTimestamp: number | null;
 
     private pendingVideoId: string | null;
 
@@ -38,6 +43,10 @@ export default class ContextPlayerController {
         this.emitter = emitter;
         this.controller = null;
         this.stateChangeListener = null;
+
+        this.progressAcc = 0;
+        this.progressStartTimestamp = null;
+
         this.pendingVideoId = null;
 
         this.setupControllerListeners();
@@ -98,6 +107,24 @@ export default class ContextPlayerController {
                     break;
             }
         }
+    }
+
+    public get progress(): number {
+        return this.computeProgress();
+    }
+
+    public set progress(value: number) {
+        if (!this.controller) {
+            return;
+        }
+
+        this.progressAcc = value;
+        this.progressStartTimestamp = Date.now();
+        this.controller.seekTo(value, true);
+    }
+
+    public get duration(): number {
+        return this.controller?.getDuration() ?? 0;
     }
 
     public get mute(): boolean {
@@ -197,6 +224,19 @@ export default class ContextPlayerController {
             } else {
                 this.states.playing.value = 'Paused';
             }
+
+            if (state === PlayerState.PLAYING) {
+                this.progressStartTimestamp = Date.now();
+            } else {
+                if (state === PlayerState.VIDEO_CUED || state === PlayerState.UNSTARTED) {
+                    this.progressAcc = 0;
+                } else {
+                    this.progressAcc = this.computeProgress();
+                }
+                this.progressStartTimestamp = null;
+            }
+
+            this.states.duration.value = controller.getDuration();
         };
 
         return controller.addListener('onStateChange', this.stateChangeListener);
@@ -205,6 +245,14 @@ export default class ContextPlayerController {
     private clearStateListener() {
         if (this.controller && this.stateChangeListener) {
             this.controller.removeListener('onStateChange', this.stateChangeListener);
+        }
+    }
+
+    private computeProgress(): number {
+        if (this.progressStartTimestamp) {
+            return this.progressAcc + Math.floor(Date.now() - this.progressStartTimestamp) / 1000;
+        } else {
+            return this.progressAcc;
         }
     }
 

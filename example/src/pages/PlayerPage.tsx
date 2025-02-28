@@ -1,15 +1,16 @@
-import { EventValue, toStringError, toStringState } from '@youtube-player/api';
+import { EventValue, PlayerState, toStringError, toStringState } from '@youtube-player/api';
 import {
     YoutubePlayer,
     useApiPlayerHandler,
     useApiPlayerListener,
     usePlayerController,
+    usePlayerDuration,
     usePlayerMute,
     usePlayerPlay,
     usePlayerSize,
     usePlayerVolume,
 } from '@youtube-player/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaBackward, FaForward } from 'react-icons/fa';
 import {
     IoPause,
@@ -59,10 +60,14 @@ export default function PlayerPage(): JSX.Element {
     const [volume, setVolume] = usePlayerVolume();
     const [{ width, height }, setPlayerSize] = usePlayerSize();
     const [isMute, setMute] = usePlayerMute();
+    const duration = usePlayerDuration();
 
     const controller = usePlayerController();
 
     const [selectedVideoId, setSelectedVideoId] = useState<string>(youtubeVideos[0].id);
+
+    const [progress, setProgress] = useState(0);
+    const changingProgressRef = useRef(false);
 
     useEffect(() => {
         const video = youtubeVideos[0];
@@ -72,8 +77,23 @@ export default function PlayerPage(): JSX.Element {
         controller.size = { width: 1280, height: 600 };
     }, [controller]);
 
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            if (!changingProgressRef.current) {
+                setProgress(controller.progress);
+            }
+        }, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [controller]);
+
     function handleStateChange(value: EventValue<'onStateChange'>) {
         logger(`State change to ${toStringState(value.data)}`);
+        if (value.data === PlayerState.UNSTARTED) {
+            setProgress(0);
+        }
     }
 
     function handleError(value: EventValue<'onError'>) {
@@ -106,6 +126,20 @@ export default function PlayerPage(): JSX.Element {
         controller.loadVideoById(video.id);
     });
 
+    function handleProgressChange(value: number) {
+        changingProgressRef.current = true;
+        if (controller.playing === 'Playing') {
+            controller.playing = 'Paused';
+        }
+        setProgress(value);
+        controller.progress = value;
+    }
+
+    function handleProgressChangeEnd() {
+        changingProgressRef.current = false;
+        controller.playing = 'Playing';
+    }
+
     return (
         <div className="flex items-stretch bg-slate-200 w-screen min-h-screen">
             <div>
@@ -126,6 +160,18 @@ export default function PlayerPage(): JSX.Element {
                 </div>
 
                 <div className="p-4">
+                    <div className="flex flex-row justify-center items-center m-4">
+                        <InputRange
+                            value={progress}
+                            onChange={handleProgressChange}
+                            onChangeEnd={handleProgressChangeEnd}
+                            size={512}
+                            minValue={0}
+                            maxValue={duration}
+                            stepValue={1}
+                        />
+                    </div>
+
                     <div className="flex justify-center items-center space-x-2">
                         <Button onTap={handleBackward} fullRounded>
                             <FaBackward size={24} />
@@ -156,7 +202,7 @@ export default function PlayerPage(): JSX.Element {
                             maxValue={100}
                             stepValue={1}
                             value={volume}
-                            setValue={setVolume}
+                            onChange={setVolume}
                         />
                     </div>
 
@@ -168,7 +214,7 @@ export default function PlayerPage(): JSX.Element {
                             maxValue={1280}
                             stepValue={10}
                             value={width}
-                            setValue={(width) => setPlayerSize({ width, height })}
+                            onChange={(width) => setPlayerSize({ width, height })}
                         />
 
                         <InputRange
@@ -178,7 +224,7 @@ export default function PlayerPage(): JSX.Element {
                             maxValue={600}
                             stepValue={10}
                             value={height}
-                            setValue={(height) => setPlayerSize({ width, height })}
+                            onChange={(height) => setPlayerSize({ width, height })}
                         />
 
                         <p className="text-lg font-bold text-slate-800">Width</p>

@@ -1,6 +1,7 @@
 import YoutubePlayer from './components/YoutubePlayer';
 import YoutubePlayerProvider from './components/YoutubePlayerProvider';
 import {
+    usePlayerDuration,
     usePlayerMute,
     usePlayerPlay,
     usePlayerSize,
@@ -21,6 +22,7 @@ export {
     usePlayerPlay,
     usePlayerSize,
     usePlayerVolume,
+    usePlayerDuration,
     usePlayerController,
     useApiPlayerController,
     useApiPlayerHandler,
