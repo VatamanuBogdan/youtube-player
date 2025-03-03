@@ -1,2 +1,1 @@
-# youtube-player-ts-api
-Youtube Player library
+# YouTube Player
